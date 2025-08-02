@@ -4,9 +4,13 @@ import {
   PrimaryGeneratedColumn,
   DeleteDateColumn,
   BeforeInsert,
+  OneToOne,
+  OneToMany,
 } from 'typeorm';
 import { EUserRoles } from '../dtos/user.dto';
 import * as bcrypt from 'bcrypt';
+import { Cart } from '../../cart/entities/cart.entity';
+import { Order } from '../../orders/entities/order.entity';
 
 @Entity('users')
 export class User {
@@ -27,6 +31,12 @@ export class User {
 
   @Column({ default: 'user' })
   role: EUserRoles;
+
+  @OneToOne(() => Cart, (cart) => cart.user)
+  cart: Cart;
+
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 
   @BeforeInsert()
   async hashPassword() {

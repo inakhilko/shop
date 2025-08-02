@@ -11,6 +11,12 @@ import { AuthModule } from './modules/auth/auth.module';
 import { User } from './modules/users/entities/user.entity';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { SubcategoriesModule } from './modules/subcategories/subcategories.module';
+import { OrdersModule } from './modules/orders/orders.module';
+import { CartModule } from './modules/cart/cart.module';
+import { OrderItem } from './modules/orders/entities/order-item.entity';
+import { CartItem } from './modules/cart/entities/cart-item.entity';
+import { Order } from './modules/orders/entities/order.entity';
+import { Cart } from './modules/cart/entities/cart.entity';
 
 @Module({
   imports: [
@@ -26,7 +32,16 @@ import { SubcategoriesModule } from './modules/subcategories/subcategories.modul
         username: configService.get('DATABASE_USERNAME'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_NAME'),
-        entities: [Product, Category, Subcategory, User],
+        entities: [
+          Product,
+          Category,
+          Subcategory,
+          User,
+          Order,
+          OrderItem,
+          Cart,
+          CartItem,
+        ],
       }),
       inject: [ConfigService],
     }),
@@ -34,6 +49,8 @@ import { SubcategoriesModule } from './modules/subcategories/subcategories.modul
     ProductsModule,
     CategoriesModule,
     SubcategoriesModule,
+    OrdersModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],
