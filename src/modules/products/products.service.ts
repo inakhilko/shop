@@ -6,14 +6,12 @@ import {
   FilterProductDto,
   UpdateProductDto,
 } from './dtos/products.dto';
-import { Between, FindOperator, Like, Repository } from 'typeorm';
+import { Between, Equal, FindOptionsWhere, Like, Repository } from 'typeorm';
 
-interface ISearchAndFilterParams {
-  name?: FindOperator<string>;
-  price?: FindOperator<number>;
-  categoryId?: number;
-  subCategoryId?: number;
-}
+type ISearchAndFilterParams =
+  | FindOptionsWhere<Product>
+  | FindOptionsWhere<Product>[]
+  | undefined;
 
 @Injectable()
 export class ProductsService {
@@ -43,11 +41,11 @@ export class ProductsService {
     }
 
     if (categoryId) {
-      parameters.categoryId = categoryId;
+      parameters.category = Equal(categoryId);
     }
 
     if (subcategoryId) {
-      parameters.subCategoryId = subcategoryId;
+      parameters.subcategory = Equal(subcategoryId);
     }
 
     return this.productsRepository.find({ where: parameters });

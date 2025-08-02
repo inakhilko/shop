@@ -5,8 +5,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './modules/products/entities/product.entity';
 import { ProductsModule } from './modules/products/products.module';
-import { Category } from './modules/products/entities/category.entity';
-import { Subcategory } from './modules/products/entities/subcategory.entity';
+import { Category } from './modules/categories/entities/category.entity';
+import { Subcategory } from './modules/subcategories/entities/subcategory.entity';
+import { AuthModule } from './modules/auth/auth.module';
+import { User } from './modules/users/entities/user.entity';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { SubcategoriesModule } from './modules/subcategories/subcategories.module';
 
 @Module({
   imports: [
@@ -22,11 +26,14 @@ import { Subcategory } from './modules/products/entities/subcategory.entity';
         username: configService.get('DATABASE_USERNAME'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_NAME'),
-        entities: [Product, Category, Subcategory],
+        entities: [Product, Category, Subcategory, User],
       }),
       inject: [ConfigService],
     }),
+    AuthModule,
     ProductsModule,
+    CategoriesModule,
+    SubcategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
