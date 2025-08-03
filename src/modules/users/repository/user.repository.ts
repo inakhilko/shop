@@ -15,10 +15,9 @@ export class UserRepository extends Repository<User> {
     );
 
     if (search) {
-      query.andWhere(
-        'user.username ILIKE :search OR user.email ILIKE :search',
-        { search: `%${search}%` },
-      );
+      query.andWhere('user.email ILIKE :search', {
+        search: `%${search}%`,
+      });
     }
 
     return query.orderBy('user.id', 'DESC').getMany();

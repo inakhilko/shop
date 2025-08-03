@@ -6,16 +6,9 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { JwtPayload } from '../modules/auth/types/types';
+import { AuthenticatedRequest, JwtPayload } from '../modules/auth/types/types';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../modules/auth/decorators/public.decorator';
-
-interface AuthenticationRequest extends Request {
-  headers: {
-    authorization: string;
-  } & Request['headers'];
-  user: JwtPayload;
-}
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -34,7 +27,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    const request = context.switchToHttp().getRequest<AuthenticationRequest>();
+    const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
     const authHeader = request.headers['authorization'];
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {

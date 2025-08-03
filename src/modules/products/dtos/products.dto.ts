@@ -38,22 +38,30 @@ export class CreateProductDto {
 }
 
 export class FilterProductDto {
+  @ApiProperty({
+    example: 'phone',
+    description: 'Value to search on product name',
+  })
   @IsString()
   @IsOptional()
   search?: string;
 
+  @ApiProperty({ example: 10.5, description: 'Min product price' })
   @IsNumber()
   @IsOptional()
   minPrice?: number;
 
+  @ApiProperty({ example: 100.5, description: 'Max product price' })
   @IsNumber()
   @IsOptional()
   maxPrice?: number;
 
+  @ApiProperty({ example: 1, description: 'Product category id' })
   @IsNumber()
   @IsOptional()
   categoryId?: number;
 
+  @ApiProperty({ example: 1, description: 'Product subcategory id' })
   @IsNumber()
   @IsOptional()
   subcategoryId?: number;

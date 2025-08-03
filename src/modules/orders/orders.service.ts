@@ -4,7 +4,7 @@ import { FindOneOptions, Repository } from 'typeorm';
 import { Cart } from '../cart/entities/cart.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './entities/order.entity';
-import { OrderStatus } from './constants/constants';
+import { EOrderStatus } from './constants/constants';
 import { CartService } from '../cart/cart.service';
 
 @Injectable()
@@ -35,7 +35,7 @@ export class OrdersService {
     const order = this.orderRepository.create({
       user: { id: userId },
       total: cart.total,
-      status: OrderStatus.PENDING,
+      status: EOrderStatus.PENDING,
       items: [],
     });
 
@@ -66,7 +66,7 @@ export class OrdersService {
 
   async updateOrderStatus(
     orderId: FindOneOptions<Order>,
-    status: OrderStatus,
+    status: EOrderStatus,
   ): Promise<Order> {
     const order = await this.orderRepository.findOne(orderId);
     if (!order) {

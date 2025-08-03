@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { OrderItem } from './order-item.entity';
-import { OrderStatus } from '../constants/constants';
+import { EOrderStatus } from '../constants/constants';
 
 @Entity()
 export class Order {
@@ -26,6 +26,6 @@ export class Order {
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
   items: OrderItem[];
 
-  @Column({ type: 'enum', enum: OrderStatus, default: OrderStatus.PENDING })
+  @Column({ type: 'enum', enum: EOrderStatus, default: EOrderStatus.PENDING })
   status: string;
 }

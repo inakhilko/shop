@@ -1,41 +1,45 @@
 import {
   IsBoolean,
   IsEmail,
+  IsEnum,
   IsNotEmpty,
-  IsString,
-  MinLength,
+  IsNumber,
 } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
+import { EUserRoles } from '../constants/constants';
 
 export class CreateUserDto {
-  @IsString()
-  @MinLength(3)
-  username: string;
-
+  @ApiProperty({
+    example: 'example@gmail.com',
+    description: 'User email address',
+  })
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
+  @ApiProperty({
+    example: true,
+    description: 'Is user active',
+  })
   @IsBoolean()
   isActive: boolean;
 }
 
-export class UpdateUserDto extends CreateUserDto {
-  id: number;
-}
-
 export class UpdateUserPropertiesDto extends PartialType(CreateUserDto) {}
 
-export class UpdatedUserPropertiesDto extends UpdateUserPropertiesDto {
-  id: number;
-}
-
-export enum EUserRoles {
-  USER = 'user',
-  ADMIN = 'admin',
-}
-
 export class ChangeUserRoleDto {
+  @ApiProperty({
+    example: 1,
+    description: 'User id',
+  })
+  @IsNumber()
   userId: number;
+
+  @ApiProperty({
+    example: EUserRoles.ADMIN,
+    description: 'New user role',
+  })
+  @IsEnum(EUserRoles)
   newRole: EUserRoles;
 }
