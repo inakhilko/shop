@@ -5,9 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Category } from '../categories/entities/category.entity';
 import { Subcategory } from '../subcategories/entities/subcategory.entity';
+import { CacheModule } from '../cache/cache.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Product, Category, Subcategory])],
+  imports: [
+    TypeOrmModule.forFeature([Product, Category, Subcategory]),
+    CacheModule,
+  ],
   providers: [ProductsService],
   controllers: [ProductsController],
 })

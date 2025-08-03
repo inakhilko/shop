@@ -16,7 +16,6 @@ import { UsersService } from './users.service';
 import {
   ChangeUserRoleDto,
   CreateUserDto,
-  EUserRoles,
   UpdateUserPropertiesDto,
 } from './dtos/user.dto';
 import { Request } from 'express';
@@ -24,6 +23,7 @@ import { RolesGuard } from '../../guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { AuthGuard } from '../../guards/auth.guard';
 import { User } from './entities/user.entity';
+import { EUserRoles } from './constants/constants';
 
 @Controller('users')
 export class UsersController {

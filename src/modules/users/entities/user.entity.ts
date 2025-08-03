@@ -7,10 +7,10 @@ import {
   OneToOne,
   OneToMany,
 } from 'typeorm';
-import { EUserRoles } from '../dtos/user.dto';
 import * as bcrypt from 'bcrypt';
 import { Cart } from '../../cart/entities/cart.entity';
 import { Order } from '../../orders/entities/order.entity';
+import { EUserRoles } from '../constants/constants';
 
 @Entity('users')
 export class User {

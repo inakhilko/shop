@@ -17,6 +17,7 @@ import { OrderItem } from './modules/orders/entities/order-item.entity';
 import { CartItem } from './modules/cart/entities/cart-item.entity';
 import { Order } from './modules/orders/entities/order.entity';
 import { Cart } from './modules/cart/entities/cart.entity';
+import { CacheModule } from './modules/cache/cache.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { Cart } from './modules/cart/entities/cart.entity';
       }),
       inject: [ConfigService],
     }),
+    CacheModule,
     AuthModule,
     ProductsModule,
     CategoriesModule,

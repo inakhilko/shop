@@ -15,7 +15,7 @@ import {
 import { ProductsService } from './products.service';
 import { Public } from '../auth/decorators/public.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { EUserRoles } from '../users/dtos/user.dto';
+import { EUserRoles } from '../users/constants/constants';
 
 @Controller('products')
 export class ProductsController {

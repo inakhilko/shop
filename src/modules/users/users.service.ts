@@ -7,7 +7,8 @@ import {
 } from '@nestjs/common';
 import { UserRepository } from './repository/user.repository';
 import { User } from './entities/user.entity';
-import { ChangeUserRoleDto, EUserRoles } from './dtos/user.dto';
+import { ChangeUserRoleDto } from './dtos/user.dto';
+import { EUserRoles } from './constants/constants';
 
 @Injectable()
 export class UsersService implements OnModuleInit {

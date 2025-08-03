@@ -7,6 +7,7 @@ import {
   UpdateProductDto,
 } from './dtos/products.dto';
 import { Between, Equal, FindOptionsWhere, Like, Repository } from 'typeorm';
+import { CacheService } from '../cache/cache.service';
 
 type ISearchAndFilterParams =
   | FindOptionsWhere<Product>
@@ -18,6 +19,7 @@ export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private productsRepository: Repository<Product>,
+    private readonly cache: CacheService,
   ) {}
 
   async getProducts(
@@ -57,18 +59,34 @@ export class ProductsService {
   }
 
   async getProduct(id: number): Promise<Product | null> {
-    return this.productsRepository.findOne({ where: { id } });
+    const cacheKey = `products/${id}`;
+
+    const cached = await this.cache.get(cacheKey);
+
+    if (cached) {
+      return cached;
+    }
+
+    const product = this.productsRepository.findOne({ where: { id } });
+
+    await this.cache.set(cacheKey, product, 3600000);
+
+    return product;
   }
 
   async updateProduct(
     id: number,
     updateProductDto: UpdateProductDto,
   ): Promise<Product | null> {
+    await this.cache.delete(`products/${id}`);
+
     await this.productsRepository.update(id, updateProductDto);
     return this.productsRepository.findOne({ where: { id } });
   }
 
   async deleteProduct(id: number): Promise<void> {
+    await this.cache.delete(`products/${id}`);
+
     await this.productsRepository.delete(id);
   }
 }

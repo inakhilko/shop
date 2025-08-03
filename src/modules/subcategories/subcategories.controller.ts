@@ -8,13 +8,13 @@ import {
   Put,
 } from '@nestjs/common';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { EUserRoles } from '../users/dtos/user.dto';
 import { Public } from '../auth/decorators/public.decorator';
 import { SubcategoriesService } from './subcategories.service';
 import {
   CreateSubcategoryDto,
   UpdateSubcategoryDto,
 } from './dtos/subcategory.dto';
+import { EUserRoles } from '../users/constants/constants';
 
 @Controller('subcategories')
 export class SubcategoriesController {

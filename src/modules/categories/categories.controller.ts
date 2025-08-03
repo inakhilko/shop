@@ -9,9 +9,9 @@ import {
 } from '@nestjs/common';
 import { CreateCategoryDto, UpdateCategoryDto } from './dtos/category.dto';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { EUserRoles } from '../users/dtos/user.dto';
 import { CategoriesService } from './categories.service';
 import { Public } from '../auth/decorators/public.decorator';
+import { EUserRoles } from '../users/constants/constants';
 
 @Controller('categories')
 export class CategoriesController {
