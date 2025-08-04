@@ -26,8 +26,8 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
 
-  @DeleteDateColumn()
-  deletedAt: Date;
+  @DeleteDateColumn({ nullable: true })
+  deletedAt: Date | null;
 
   @Column({ default: 'user' })
   role: EUserRoles;

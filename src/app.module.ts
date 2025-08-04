@@ -43,6 +43,7 @@ import { CacheModule } from './modules/cache/cache.module';
           Cart,
           CartItem,
         ],
+        synchronize: true,
       }),
       inject: [ConfigService],
     }),
